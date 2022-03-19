@@ -1,22 +1,15 @@
-# package.use# required by media-libs/mesa-22.0.0_rc2::gentoo[video_cards_radeonsi,-video_cards_r300,-video_cards_radeon,-video_cards_r600]
-# required by x11-libs/gtk+-3.24.31::gentoo[X]
-# required by x11-themes/adwaita-icon-theme-41.0::gentoo
-# required by x11-libs/gtk+-2.24.33::gentoo
-# required by x11-themes/gtk-engines-adwaita-3.28::gentoo
->=x11-libs/libdrm-2.4.110 video_cards_radeon
-
-# build media-libs/mesa with radeonsi flag to use 3D acceleration
-media-libs/mesa video_cards_radeonsi
-
-# required by sys-boot/os-prober-1.79-r2::gentoo
-# required by sys-boot/os-prober (argument)
->=sys-boot/grub-2.06-r1 mount
-
 # build sys-kernel/gentoo-sources with experimental use flags to add genpatches
 sys-kernel/gentoo-sources experimental
 
 # build net-misc/networkmanager with iwd flag to enable iwd support
 net-misc/networkmanager iwd
+
+# build gui-apps/waybar with network, tray and wifi flags for additional features
+gui-apps/waybar network tray wifi 
+
+# build gui-wm/sway with tray and wallpapers flag to add default wallpapers and
+# disable swaylock flag in favor of gui-apps/swaylock-effects
+gui-wm/sway tray wallpapers -swaylock
 
 # build app-arch/p7zip without wxwidgets flag to avoid 7zG
 app-arch/p7zip -wxwidgets
@@ -39,8 +32,8 @@ app-emulation/spice smartcard
 # with app-emulation/qemu
 net-misc/spice-gtk smartcard usbredir
 
-# build gnome-base/gvfs with mtp flag for mtp support
-gnome-base/gvfs mtp
+# build gnome-base/gvfs with mtp and archive flag for mtp and archive support
+gnome-base/gvfs mtp archive
 
 # exclude lto flag for net-libs/nodejs-16.13.1 for now since LTO builds of nodejs using
 # gcc-11+ currently fail tests and produce runtime errors
@@ -48,74 +41,16 @@ gnome-base/gvfs mtp
 
 # build byobu and dependencies with additional python3_9 flag till it supports python3_10
 app-misc/byobu python_single_target_python3_9
+# required by app-misc/byobu-5.133::gentoo[python_single_target_python3_9]
+# required by byobu (argument)
 dev-libs/newt python_targets_python3_9 
-
-# build ranger and dependencies with additional python3_9 flag till it supports python3_10
-app-misc/ranger python_targets_python3_9
-dev-python/setuptools python_targets_python3_9
 
 # build nohang with additional python3_9 flag till it supports python3_10
 sys-process/nohang python_targets_python3_9
 
-# required by x11-libs/xapp-2.2.8::gentoo
-# required by app-backup/timeshift-21.09.1-r1::guru
-# required by timeshift (argument)
->=dev-libs/libdbusmenu-16.04.0-r1 gtk3
+# build media-libs/freeimage with raw and webp for additional features
+media-libs/freeimage raw webp
 
-# required by www-client/firefox-97.0.1::gentoo[system-libvpx]
-# required by firefox (argument)
->=media-libs/libvpx-1.11.0 postproc
-
-# required by sys-libs/compiler-rt-sanitizers-13.0.1::gentoo
-# required by sys-devel/clang-runtime-13.0.1::gentoo[compiler-rt,sanitize]
-# required by sys-devel/clang-13.0.1::gentoo
-# required by sys-devel/clang-common-13.0.1::gentoo
->=virtual/libcrypt-2 abi_x86_32
-
-# required by virtual/libcrypt-2::gentoo
-# required by sys-libs/compiler-rt-sanitizers-13.0.1::gentoo
-# required by sys-devel/clang-runtime-13.0.1::gentoo[compiler-rt,sanitize]
-# required by sys-devel/clang-13.0.1::gentoo
-# required by sys-devel/clang-common-13.0.1::gentoo
->=sys-libs/libxcrypt-4.4.27 abi_x86_32
-
-# required by www-client/firefox-97.0.1::gentoo[pgo]
-# required by @selected
-# required by @world (argument)
->=x11-base/xorg-server-21.1.3 xvfb
-
-# required by app-crypt/swtpm-0.7.1::gentoo[gnutls]
-# required by app-emulation/quickemu-3.11::guru
-# required by quickemu (argument)
->=net-libs/gnutls-3.7.3 pkcs11 tools
-
-# required by dev-python/setuptools-60.9.2::gentoo[-python_targets_python3_8,-python_targets_pypy3,python_targets_python3_9]
-# required by dev-libs/libgusb-0.3.10::gentoo
-# required by x11-misc/colord-1.4.6::gentoo
-# required by x11-libs/colord-gtk-0.3.0::gentoo
-# required by gnome-base/gnome-control-center-41.4::gentoo
-# required by @selected
-# required by @world (argument)
->=dev-python/importlib_metadata-4.11.2 python_targets_python3_9
-
-# required by dev-python/importlib_metadata-4.11.2::gentoo
-# required by dev-python/setuptools-60.9.2::gentoo[-python_targets_python3_8,-python_targets_pypy3,python_targets_python3_9]
-# required by dev-libs/libgusb-0.3.10::gentoo
-# required by x11-misc/colord-1.4.6::gentoo
-# required by x11-libs/colord-gtk-0.3.0::gentoo
-# required by gnome-base/gnome-control-center-41.4::gentoo
-# required by @selected
-# required by @world (argument)
->=dev-python/zipp-3.7.0-r1 python_targets_python3_9
-
-# required by dev-python/more-itertools-8.12.0-r1::gentoo
-# required by dev-python/jaraco-functools-3.5.0-r1::gentoo
-# required by dev-python/jaraco-text-3.7.0-r1::gentoo
-# required by dev-python/setuptools-60.9.2::gentoo
-# required by dev-libs/libgusb-0.3.10::gentoo
-# required by x11-misc/colord-1.4.6::gentoo
-# required by x11-libs/colord-gtk-0.3.0::gentoo
-# required by gnome-base/gnome-control-center-41.4::gentoo
-# required by @selected
-# required by @world (argument)
->=dev-python/flit_core-3.7.1 python_targets_python3_9
+# build media-gfx/graphicsmagick with dynamic-loading and imagemagick flags for 
+# additional features
+media-gfx/graphicsmagick dynamic-loading imagemagick
