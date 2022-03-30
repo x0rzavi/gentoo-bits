@@ -35,6 +35,16 @@ net-misc/spice-gtk smartcard usbredir
 # build gnome-base/gvfs with mtp and archive flag for mtp and archive support
 gnome-base/gvfs mtp archive
 
+# build app-containers/podman with btrfs flags to add support for btrfs graph driver
+app-containers/podman btrfs
+
+# build app-containers/docker with btrfs & overlay flags to add support for btrfs & overlay
+# graph driver
+app-containers/docker btrfs overlay
+
+# build app-containers/containerd with btrfs flags to add support for btrfs graph driver
+app-containers/containerd btrfs 
+
 # exclude lto flag for net-libs/nodejs-16.13.1 for now since LTO builds of nodejs using
 # gcc-11+ currently fail tests and produce runtime errors
 =net-libs/nodejs-16.13.1 -lto
